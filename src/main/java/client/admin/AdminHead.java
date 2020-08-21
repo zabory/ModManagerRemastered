@@ -1,5 +1,7 @@
 package client.admin;
 
+
+
 /**
  * Admin head class to launch admin part of application.
  * The admin will take care of searching curseforge for updating mods
@@ -12,6 +14,8 @@ public class AdminHead {
 
 	public AdminHead() {
 		
+	
+
 	}
 	
 }
