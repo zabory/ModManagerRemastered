@@ -15,7 +15,7 @@ import server.ServerHead;
  * built in.
  * 
  * @author Ben Shabowski
- * @version 0.1
+ * @version 0.2
  * @since 0.1
  */
 public class App extends Application {
@@ -34,7 +34,7 @@ public class App extends Application {
 				new ServerHead();
 				break;
 			default:
-				new ClientHead();
+				//new ClientHead();
 				break;
 			}
 		}

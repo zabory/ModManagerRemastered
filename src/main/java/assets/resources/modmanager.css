@@ -1,0 +1,10 @@
+.root{
+
+    -fx-base: #be83bd;
+    -fx-background: #000000;
+
+}
+
+.progress-bar .bar {
+    -fx-background-color: #000000;
+}

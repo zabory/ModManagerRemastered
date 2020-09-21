@@ -29,7 +29,7 @@ import javafx.stage.Stage;
  * Head to run the installer program.
  * This will install the minecraft profile, active the forge installer, and run the client side mod manager to sync the mods with the server
  * @author Ben Shabowski
- * @version 0.1
+ * @version 0.2
  * @since 0.1
  */
 public class InstallerHead{
@@ -80,11 +80,14 @@ public class InstallerHead{
 		submit.setOnAction(e -> {
 			if (!modpackName.getText().equals("") && !ip.getText().equals("") && !port.getText().equals("")) {
 				arg0.hide();
-				try {
-					installPack(modpackName.getText(), ip.getText(), port.getText(), (int)ramAmount.getValue());
-				} catch (IOException | ParseException e1) {
-					e1.printStackTrace();
-				}
+				
+				new ClientHead(ip.getText(), port.getText());
+				
+//				try {
+//					installPack(modpackName.getText(), ip.getText(), port.getText(), (int)ramAmount.getValue());
+//				} catch (IOException | ParseException e1) {
+//					e1.printStackTrace();
+//				}
 				
 			}
 		});
@@ -93,6 +96,7 @@ public class InstallerHead{
 		GridPane.setHalignment(submit, HPos.CENTER);
 		
 		Scene mainScene = new Scene(mainPane, 300, 200);
+		mainScene.getStylesheets().add("/assets/resources/modmanager.css");
 		arg0.setTitle("Modpack installer");
 		arg0.getIcons().add(new Image(getClass().getResource("/assets/resources/Installer.png").toString()));
 		arg0.setScene(mainScene);
