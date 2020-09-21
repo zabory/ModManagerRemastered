@@ -23,6 +23,8 @@ public class App extends Application {
 	@Override
 	public void start(Stage arg0) throws Exception {
 		List<String> args = this.getParameters().getRaw();
+		
+		arg0.setOnCloseRequest(e ->{System.exit(1);});
 
 		// Launch specific applications
 		for (String x : args) {

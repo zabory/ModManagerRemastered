@@ -35,7 +35,7 @@ public class ClientHeadlessController {
 
 	@FXML
 	void startSync(ActionEvent event) {
-		new Sync(IP.getText(), Port.getText(), currentProg, totalProg, logOutput).start();
+		new Sync(IP.getText(), Port.getText(), currentProg, totalProg, logOutput ,true).start();
 		sync.setDisable(true);
 		logOutput.heightProperty().addListener(observable -> {
 			scrollPane.setVvalue(1.0);
@@ -43,6 +43,9 @@ public class ClientHeadlessController {
 	}
 	
 	public void output(String message) {
+		logOutput.heightProperty().addListener(observable -> {
+			scrollPane.setVvalue(1.0);
+		});
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -72,7 +75,10 @@ public class ClientHeadlessController {
 	}
 	
 	public void sync(String ip, String port) {
-		new Sync(ip, port, currentProg, totalProg, logOutput).start();
+		logOutput.heightProperty().addListener(observable -> {
+			scrollPane.setVvalue(1.0);
+		});
+		new Sync(ip, port, currentProg, totalProg, logOutput, true).start();
 	}
 
 

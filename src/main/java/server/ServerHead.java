@@ -45,6 +45,7 @@ public class ServerHead {
 				e.printStackTrace();
 			}
 		}
+		
 		// port of server
 		String port = "";
 
@@ -104,6 +105,24 @@ public class ServerHead {
 				System.out.println("Registering file to be synced:" + x.getName());
 			}
 		}
+		
+		
+		//get forge file
+		File forge = null;
+		
+		for(File x : new File(System.getProperty("user.dir")).listFiles()) {
+			if(x.getName().contains("forge") && x.getName().contains("installer")) {
+				forge = new File(x.getName());
+				break;
+			}
+		}
+		
+		if(forge == null) {
+			System.out.println("Please provide forge installer");
+			System.exit(1);
+		}else {
+			System.out.println("Registering forge version: " + forge.getName().replace("forge-", "").replace("-installer.jar", ""));
+		}
 
 		try {
 			System.out.println("Starting server on port " + port);
@@ -111,7 +130,7 @@ public class ServerHead {
 			ServerSocket server = new ServerSocket(42069);
 			System.out.println("Waiting for connections...");
 			while (true) {
-				new ClientHandler(server.accept(), dirSync, fileSync).start();
+				new ClientHandler(server.accept(), dirSync, fileSync, forge).start();
 			}
 
 		} catch (NumberFormatException | IOException e) {
@@ -137,11 +156,13 @@ public class ServerHead {
 		private Socket client;
 		private LinkedList<File> dirSync;
 		private LinkedList<File> fileSync;
+		private File forge;
 
-		public ClientHandler(Socket client, LinkedList<File> dirSync, LinkedList<File> fileSync) {
+		public ClientHandler(Socket client, LinkedList<File> dirSync, LinkedList<File> fileSync, File forge) {
 			this.client = client;
 			this.dirSync = dirSync;
 			this.fileSync = fileSync;
+			this.forge = forge;
 
 		}
 
@@ -152,7 +173,19 @@ public class ServerHead {
 			try {
 				PrintStream output = new PrintStream(client.getOutputStream());
 				BufferedReader input = new BufferedReader(new InputStreamReader(client.getInputStream()));
-
+				
+				//Send forge version
+				output.println(forge.getName());
+				
+				//listen if we need to send it
+				if(Boolean.parseBoolean(input.readLine())) {
+					sendFile(forge);
+				}
+				
+				output.println("Blackhole");
+				output.println(9);
+				
+				//Send how many files to sync
 				output.println(fileSync.size());
 
 				for (File x : dirSync) {
@@ -160,27 +193,7 @@ public class ServerHead {
 				}
 
 				for (File x : fileSync) {
-					boolean isCorrect = false;
-					while (!isCorrect) {
-						output.println("f," + x.getPath() + "," + x.hashCode() + "," + x.length());
-						String reply = input.readLine();
-						if (reply.equals("true")) {
-
-							byte[] bytes = new byte[(int) x.length()];
-							BufferedInputStream fileInput = new BufferedInputStream(new FileInputStream(x));
-							fileInput.read(bytes, 0, bytes.length);
-
-							output.println(bytes.length);
-							input.readLine();
-
-							client.getOutputStream().write(bytes, 0, bytes.length);
-
-							fileInput.close();
-
-							input.readLine();
-						}
-						isCorrect = Boolean.parseBoolean(input.readLine());
-					}
+					sendFile(x);
 				}
 
 				output.println("c");
@@ -193,6 +206,32 @@ public class ServerHead {
 				System.out.println("We lost connection with:" + client.getInetAddress());
 			}
 
+		}
+		
+		private void sendFile(File x) throws IOException {
+			PrintStream output = new PrintStream(client.getOutputStream());
+			BufferedReader input = new BufferedReader(new InputStreamReader(client.getInputStream()));
+			boolean isCorrect = false;
+			while (!isCorrect) {
+				output.println("f," + x.getPath() + "," + x.hashCode() + "," + x.length());
+				String reply = input.readLine();
+				if (reply.equals("true")) {
+
+					byte[] bytes = new byte[(int) x.length()];
+					BufferedInputStream fileInput = new BufferedInputStream(new FileInputStream(x));
+					fileInput.read(bytes, 0, bytes.length);
+
+					output.println(bytes.length);
+					input.readLine();
+
+					client.getOutputStream().write(bytes, 0, bytes.length);
+
+					fileInput.close();
+
+					input.readLine();
+				}
+				isCorrect = Boolean.parseBoolean(input.readLine());
+			}
 		}
 	}
 }

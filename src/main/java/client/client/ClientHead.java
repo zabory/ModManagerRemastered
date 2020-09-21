@@ -21,6 +21,10 @@ public class ClientHead {
 	public ClientHead() {
 
 		Stage head = new Stage();
+		
+		head.setOnCloseRequest(e -> {
+			System.exit(1);
+		});
 
 		head.setTitle("Client to server Sync information");
 		
@@ -54,7 +58,9 @@ public class ClientHead {
 		Stage headless = new Stage();
 		headless.setTitle("Client to server Sync information");
 	
-		
+		headless.setOnCloseRequest(e -> {
+			System.exit(1);
+		});
 		
 		FXMLLoader fl = new FXMLLoader();
 		

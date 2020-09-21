@@ -49,7 +49,7 @@ public class ClientHeadController {
 	@FXML
 	void startSync(ActionEvent event) {
 		if (!IP.getText().equals("") && !Port.getText().equals("")) {
-			new Sync(IP.getText(), Port.getText(), currentProg, totalProg, logOutput).start();
+			new Sync(IP.getText(), Port.getText(), currentProg, totalProg, logOutput, false).start();
 			sync.setDisable(true);
 		} else {
 			output("Please provide a valid port and IP address");
