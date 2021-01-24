@@ -1,13 +1,8 @@
 package Installer;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import client.client.ClientHead;
@@ -15,9 +10,7 @@ import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -47,7 +40,7 @@ public class InstallerHead{
 		mainPane.add(new Label("Server ip:"), 0, 1, 1, 1);
 		mainPane.add(new Label("Server port:"), 0, 2, 1, 1);
 		
-		TextField ip = new TextField("zgamelogic.com");
+		TextField ip = new TextField();
 		TextField port = new TextField("42069");
 		
 		mainPane.add(ip, 1, 1);
@@ -71,14 +64,14 @@ public class InstallerHead{
 		Scene mainScene = new Scene(mainPane, 300, 200);
 		mainScene.getStylesheets().add("/assets/resources/modmanager.css");
 		arg0.setTitle("Modpack installer");
-		arg0.getIcons().add(new Image(getClass().getResource("/assets/resources/Installer.png").toString()));
+		arg0.getIcons().add(new Image(getClass().getResource("/assets/resources/modManagerIco.png").toString()));
 		arg0.setScene(mainScene);
 		arg0.show();
 	}
 	
 	public InstallerHead(String modpackName, String ip, String port, int ram) {
 		try {
-			installPack(modpackName, ip, port, ram);
+			installPack(ip, port);
 			
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
@@ -95,7 +88,7 @@ public class InstallerHead{
 	 * @throws IOException 
 	 * @throws FileNotFoundException 
 	 */
-	public void installPack(String modpackName, String ip, String port, int ram) throws FileNotFoundException, IOException, ParseException {
+	public void installPack(String ip, String port) throws FileNotFoundException, IOException, ParseException {
 				
 		new ClientHead(ip, port);
 		

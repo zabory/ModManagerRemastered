@@ -6,7 +6,6 @@ public class Head {
 		App.launch(App.class, args);
 	}
 
-	
 	/*
 	 * TODO
 	 * Add new icons for just the plain installer

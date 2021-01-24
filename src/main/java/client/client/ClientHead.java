@@ -2,6 +2,7 @@ package client.client;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -27,11 +28,12 @@ public class ClientHead {
 		});
 
 		head.setTitle("Client to server Sync information");
-		
+		head.getIcons().add(new Image(getClass().getResource("/assets/resources/modManagerIco.png").toString()));
 		Pane mainPane = null;
 		
 		try {
 			mainPane = FXMLLoader.load(getClass().getResource("/assets/resources/HeadedSync.fxml"));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -57,7 +59,7 @@ public class ClientHead {
 
 		Stage headless = new Stage();
 		headless.setTitle("Client to server Sync information");
-	
+		headless.getIcons().add(new Image(getClass().getResource("/assets/resources/modManagerIco.png").toString()));
 		headless.setOnCloseRequest(e -> {
 			System.exit(1);
 		});
