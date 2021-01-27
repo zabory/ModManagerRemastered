@@ -137,10 +137,11 @@ public class Sync extends Thread {
 			while (!input.equals("c")) {
 				input = serverInput.readLine();
 				/*
-				 * lets talk message commands d <dir> checks if directory exists : no return
-				 * needed f <file> <hash code> checks if file exists : expects a true or false,
-				 * true if the file doesnt need to sync, false if it does b <byte> byte for
-				 * current file : no return needed c closes connection
+				 * lets talk message commands 
+				 * d <dir> checks if directory exists : no return needed
+				 * f <file> <hash code> checks if file exists : expects a true or false, true if the file doesnt need to sync, false if it does
+				 * b <byte> byte for current file : no return needed 
+				 * c closes connection
 				 */
 
 				if (input.charAt(0) == 'f') {
@@ -185,7 +186,6 @@ public class Sync extends Thread {
 			e.printStackTrace();
 			output("Failed to connect or maintain connection");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -267,10 +267,9 @@ public class Sync extends Thread {
 	 * @return false if the file does not exist or match the hash code
 	 */
 	private boolean fileCheck(String name, int hashCode, long size) {
-
 		File file = new File(name);
 
-		if (!file.exists() || file.hashCode() != hashCode || file.length() != size) {
+		if (!file.exists() /*|| file.hashCode() != hashCode*/ || file.length() != size) {
 			return false;
 		}
 		return true;

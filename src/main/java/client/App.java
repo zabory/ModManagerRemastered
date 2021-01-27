@@ -8,7 +8,6 @@ import Installer.InstallerHead;
 import client.client.ClientHead;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import server.ServerHead;
 
 /**
  * Application head. Launches appropriate program since there are technically 3
@@ -32,9 +31,6 @@ public class App extends Application {
 			case "-admin":
 				//new AdminHead();
 				break;
-			case "-server":
-				new ServerHead();
-				break;
 			default:
 				//new ClientHead();
 				break;
@@ -45,9 +41,9 @@ public class App extends Application {
 		// the jar file
 		// test for is mods and configs exist, this will determine which thing to launch
 		File modsFolder = new File("mods");
-		if (modsFolder.exists()) {
+		if(modsFolder.exists()) {
 			new ClientHead();
-		} else {
+		}else{
 			new InstallerHead();
 		}
 	}

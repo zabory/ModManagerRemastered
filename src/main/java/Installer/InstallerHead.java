@@ -40,8 +40,8 @@ public class InstallerHead{
 		mainPane.add(new Label("Server ip:"), 0, 1, 1, 1);
 		mainPane.add(new Label("Server port:"), 0, 2, 1, 1);
 		
-		TextField ip = new TextField();
-		TextField port = new TextField("42069");
+		TextField ip = new TextField("zgamelogic.com");
+		TextField port = new TextField("50020");
 		
 		mainPane.add(ip, 1, 1);
 		mainPane.add(port, 1, 2);
@@ -64,7 +64,7 @@ public class InstallerHead{
 		Scene mainScene = new Scene(mainPane, 300, 200);
 		mainScene.getStylesheets().add("/assets/resources/modmanager.css");
 		arg0.setTitle("Modpack installer");
-		arg0.getIcons().add(new Image(getClass().getResource("/assets/resources/modManagerIco.png").toString()));
+		arg0.getIcons().add(new Image(getClass().getResource("/assets/resources/ModManagerIco.png").toString()));
 		arg0.setScene(mainScene);
 		arg0.show();
 	}

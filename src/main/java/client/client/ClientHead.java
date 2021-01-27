@@ -28,7 +28,7 @@ public class ClientHead {
 		});
 
 		head.setTitle("Client to server Sync information");
-		head.getIcons().add(new Image(getClass().getResource("/assets/resources/modManagerIco.png").toString()));
+		head.getIcons().add(new Image(getClass().getResource("/assets/resources/ModManagerIco.png").toString()));
 		Pane mainPane = null;
 		
 		try {
@@ -59,7 +59,7 @@ public class ClientHead {
 
 		Stage headless = new Stage();
 		headless.setTitle("Client to server Sync information");
-		headless.getIcons().add(new Image(getClass().getResource("/assets/resources/modManagerIco.png").toString()));
+		headless.getIcons().add(new Image(getClass().getResource("/assets/resources/ModManagerIco.png").toString()));
 		headless.setOnCloseRequest(e -> {
 			System.exit(1);
 		});
